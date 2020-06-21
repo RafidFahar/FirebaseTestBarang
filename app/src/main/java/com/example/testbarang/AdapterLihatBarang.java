@@ -1,6 +1,7 @@
 package com.example.testbarang;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,15 @@ public class AdapterLihatBarang extends RecyclerView.Adapter<AdapterLihatBarang.
         holder.tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String nama = "Nama Barang     : " + daftarBarang.get(position).getNama();
+                String kode = "Kode Barang     : " + daftarBarang.get(position).getKode();
 
+                final String[] detailItem = {kode, nama};
+
+                AlertDialog.Builder builderAlert = new AlertDialog.Builder(view.getContext());
+                builderAlert.setTitle("Detail").setItems(detailItem, null);
+                builderAlert.create();
+                builderAlert.show();
             }
         });
         holder.tvTitle.setOnLongClickListener(new View.OnLongClickListener() {
