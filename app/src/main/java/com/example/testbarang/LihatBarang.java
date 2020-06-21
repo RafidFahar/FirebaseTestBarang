@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class LihatBarang extends AppCompatActivity {
+public class LihatBarang extends AppCompatActivity implements AdapterLihatBarang.FirebaseDataListener {
 
     private DatabaseReference database;
     private RecyclerView rvView;
@@ -59,6 +62,19 @@ public class LihatBarang extends AppCompatActivity {
         return new Intent(activity, LihatBarang.class);
     }
 
+    @Override
+    public void onDeleteData(Barang barang, int position) {
+        if(database != null) {
+            database.child("Barang")
+                    .child(barang.getKode()).removeValue()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(LihatBarang.this,"Data Telah Dihapus", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+    }
 }
 
 
