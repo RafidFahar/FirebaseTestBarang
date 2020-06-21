@@ -48,6 +48,8 @@ public class TambahData extends AppCompatActivity  {
                     barang.setNama(etNama.getText().toString());
 
                     updateBarang(barang);
+
+                    finish();
                 }
             });
         } else {
@@ -73,9 +75,15 @@ public class TambahData extends AppCompatActivity  {
         return TextUtils.isEmpty(s);
     }
 
+
     private void updateBarang(Barang barang) {
+
+        database = FirebaseDatabase.getInstance().getReference();
+
+        final String getKey = getIntent().getExtras().getString("key");
+
         database.child("Barang")
-                .child(barang.getKode())
+                .child(barang.getKey())
                 .setValue(barang)
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
                     @Override

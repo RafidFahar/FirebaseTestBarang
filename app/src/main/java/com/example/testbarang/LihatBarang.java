@@ -45,7 +45,7 @@ public class LihatBarang extends AppCompatActivity implements AdapterLihatBarang
                    for (DataSnapshot noteDataSnapshot :
                            dataSnapshot.getChildren()) {
                        Barang barang = noteDataSnapshot.getValue(Barang.class);
-                       barang.setKode(noteDataSnapshot.getKey());
+                       barang.setKey(noteDataSnapshot.getKey());
                        daftarBarang.add(barang);
                    }
                    adapter = new AdapterLihatBarang(daftarBarang,
@@ -66,7 +66,7 @@ public class LihatBarang extends AppCompatActivity implements AdapterLihatBarang
     public void onDeleteData(Barang barang, int position) {
         if(database != null) {
             database.child("Barang")
-                    .child(barang.getKode()).removeValue()
+                    .child(barang.getKey()).removeValue()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
